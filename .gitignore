@@ -329,7 +329,7 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 TikaServiceInstaller/ComponentsGenerated.wxs
-TikaServiceInstaller/Download/
 TikaServiceInstaller/TikaServiceDownload
 /TikaServiceInstaller/TikaService-bin.zip
 /TikaServiceInstaller/cabs/#cab1.cab
+/TikaServiceInstaller/TikaService-*.zip
