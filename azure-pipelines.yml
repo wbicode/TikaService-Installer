@@ -20,8 +20,6 @@ steps:
   displayName: 'Nuget restore dependencies'
   inputs:
     command: 'restore'
-    feedsToUse: 'Config'
-    nugetConfigPath: 'NuGet.Server.config'
 
 - task: gittools.gitversion.gitversion-task.GitVersion@3
   displayName: GitVersion
