@@ -112,8 +112,6 @@
     <Property Id="START_AFTER_SETUP" Value="0" />
     <Property Id="STARTUP_TYPE" Value="auto" />
     <Property Id="TIKA_LOGLEVEL" Value="Error" />
-    <SetProperty Id="LOG_PATH" Value="[%SystemRoot]\System32\LogFiles\TikaService" Before="LaunchConditions" Sequence="first" />
-    <SetProperty Id="CHOSEN_DIRECTORY" Value="[%SystemRoot]\System32\LogFiles\TikaService" Before="LaunchConditions" Sequence="first" />
 
     <!-- Custom Path; Used in InstallerUI.wxs -->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
