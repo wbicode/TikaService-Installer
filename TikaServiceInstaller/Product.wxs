@@ -55,6 +55,9 @@
     <Property Id="ARPHELPLINK" Value="https://www.wbi-wissensmanagement.com/" />
     <Property Id="ARPURLINFOABOUT" Value="https://www.wbi-wissensmanagement.com/" />
 
+    <!-- disable modify -->
+    <Property Id="ARPNOMODIFY" Value="1" />
+
     <!-- for developing purposes -->
     <!--<Property Id="MSIFASTINSTALL" Value="7" />-->
 
