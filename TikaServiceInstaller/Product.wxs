@@ -77,6 +77,7 @@
       
       <ComponentRef Id="RememberUninstallServiceName" />
       <ComponentRef Id="RememberUninstallPrunsrvName" />
+      <ComponentRef Id="RememberLogDirectory" />
     </Feature>
 
     <!-- use .dll which has a custom action to check if a JRE is installed -->
@@ -107,6 +108,10 @@
       <RegistrySearch Id='SearchUninstallPrunsrvName' Root='HKLM'
           Key='SOFTWARE\TikaService'
          Name='[ProductCode]_UninstallPrunsrvName' Type='raw' />
+    </Property>
+    <Property Id='UNINSTALL_LOG_FOLDER' Secure='yes'>
+      <RegistrySearch Id='SearchUninstallLogFolder' Root='HKLM' Key='SOFTWARE\TikaService'
+                        Name='LogDirectory' Type='raw' />
     </Property>
 
     <Property Id="START_AFTER_SETUP" Value="0" />
@@ -168,6 +173,11 @@
       <Component Id="RememberUninstallPrunsrvName">
         <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
                         Name='[ProductCode]_UninstallPrunsrvName' Value='[PRUNSRV_NAME]'
+                        Type='string' />
+      </Component>
+      <Component Id="RememberLogDirectory">
+        <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
+                        Name='LogDirectory' Value='[LOG_PATH]'
                         Type='string' />
       </Component>
       <Component Id="StartServiceCondition" Guid="4928D96B-438D-4193-8706-2F5AC0082D80" KeyPath="yes">
