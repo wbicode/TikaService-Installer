@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
+  <?if $(var.Platform) = x64 ?>
+  <?define ProgramFilesFolder = ProgramFiles64Folder?>
+  <?define SystemFolder = System64Folder?>
+  <?define IsWin64 = "yes" ?>
+  <?else?>
+  <?define ProgramFilesFolder = ProgramFilesFolder?>
+  <?define IsWin64 = "no" ?>
+  <?define SystemFolder = SystemFolder?>
+  <?endif?>
+  
   <!-- this version is intended for the actual msi version (no alphabetical characters allowed) -->
   <?if $(var.BuildVersion) = '' ?>
   <?define BuildVersion = 0.0.0 ?>
@@ -125,6 +135,11 @@
         <Directory Id="INSTALLFOLDER" Name="TikaService" />
       </Directory>
 
+      <Directory Id="SystemFolder">
+        <Directory Id="LogFiles" Name="LogFiles">
+          <Directory Id="LOG_PATH" Name="TikaService" />
+        </Directory>
+      </Directory>
     </Directory>
 
     <!-- ################### Components ######################### -->
@@ -135,7 +150,7 @@
         <Shortcut Id="UninstallProduct"
                   Name="!(loc.uninstall) $(var.ProductName)"
                   Description="!(loc.uninstalls) $(var.ProductName)"
-                  Target="[System64Folder]msiexec.exe"
+                  Target="[SystemFolder]msiexec.exe"
                   Arguments="/x [ProductCode]"/>
         <CreateFolder/>
         <RemoveFolder Id="ProgramFilesFolder" On="uninstall"  />
