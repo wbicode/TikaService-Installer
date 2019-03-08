@@ -50,7 +50,6 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE.md" />
     <Content Include="neverOverwriteConfigs.xslt" />
     <Content Include="packages.config" />
     <Content Include="Resources\License.rtf" />
