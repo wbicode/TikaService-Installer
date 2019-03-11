@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI>
+      <Dialog Id="ServiceExistsWarningDlg" Width="250" Height="130" Title="!(loc.ServiceExistsWarningDlgTitle)">
+        <!-- Header -->
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="226" Height="13" Transparent="yes" NoPrefix="yes" Text="!(loc.ServiceExistsWarningTitle)" />
+        <!-- Content -->
+        <Control Type="Bitmap" Id="WarnIcoBmp" Width="64" Height="64" X="15" Y="20" Text="WarningIco" />
+        <Control Type="Text" Id="LabelHost" Width="149" Height="58" X="90" Y="22" Text="!(loc.ServiceExistsWarning)" />
+        <!-- Next/Back/Cancel Buttons -->
+        <Control Id="BottomLine" Type="Line" X="4" Y="94" Width="242" Height="2" />
+        <Control Id="Back" Type="PushButton" X="188" Y="105" Width="56" Height="17" Default="yes" Text="!(loc.WixUIBack)" />
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

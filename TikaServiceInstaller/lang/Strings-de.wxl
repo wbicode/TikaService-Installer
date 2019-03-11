@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="de-de" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="java_missing">Java Runtime Environment (32 Bit or 64 bit) fehlt. Bitte installieren Sie Oracle JRE/JDK oder OpenJDK</String>
+  <String Id="uninstall">Deinstalliere</String>
+  <String Id="uninstalls">Deinstalliert</String>
+  <String Id="manual">Manuell</String>
+  <String Id="automatic">Automatisch</String>
+  <String Id="older_version_installed">Eine neuere Version von [ProductName] ist bereits installiert.</String>
+  <String Id="startup">Starttyp:</String>
+  <String Id="start_after_install">Starte den Service nach der Installation</String>
+  <String Id="java_home_missing">JAVA_HOME Umgebungsvariable ist nicht definiert</String>
+  <String Id="log_path">Log-Pfad:</String>
+  <String Id="service_name">Service Name:</String>
+  <String Id="log_level">Log-Level:</String>
+  <String Id="TikaServiceDlgTitle">{\WixUI_Font_Title}TikaService</String>
+  <String Id="TikaServiceDescription">Konfiguration vom TikaService (Windows Dienst)</String>
+  <String Id="UninstallRemoveLogs">Entferne Logdateien</String>
+  <String Id="UninstallRemoveConfig">Lösche Konfiguration</String>
+  <String Id="UninstallTitle">{\WixUI_Font_Title}Deinstallation von [ProductName]</String>
+  <String Id="UninstallDescription">Zu entfernenden Daten auswählen</String>
+  <String Id="UninstallDlgTitle">Deinstallation</String>
+
+  <String Id="ServiceExistsWarningDlgTitle">Service existiert schon</String>
+  <String Id="ServiceExistsWarningTitle">{\WixUI_Font_Title}Warnung</String>
+  <String Id="ServiceExistsWarning">Dieser Servicename ist leider schon vergeben: [SERVICE_NAME]. Bitte wählen Sie einen anderen Instanznamen oder löschen Sie den Dienst (sc delete [SERVICE_NAME])</String>
+
+  <String Id="PortInUseWarningDlgTitle">Der Port [SERVICE_PORT] ist schon in Verwendung</String>
+  <String Id="PortInUseWarningTitle">{\WixUI_Font_Title}Warnung</String>
+  <String Id="PortInUseWarning">Der Port [SERVICE_PORT] ist schon in Verwendung. Bitte einen anderen Port definieren</String>
+
+</WixLocalization>

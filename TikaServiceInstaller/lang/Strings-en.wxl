@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="java_missing">Java Runtime Environment (32 Bit or 64 bit) is not installed. Please install Oracle JRE/JDK or OpenJDK</String>
+  <String Id="uninstall">Uninstall</String>
+  <String Id="uninstalls">Uninstalls</String>
+  <String Id="manual">Manual</String>
+  <String Id="automatic">Automatic</String>
+  <String Id="older_version_installed">A newer version of [ProductName] is already installed.</String>
+  <String Id="startup">Startup:</String>
+  <String Id="start_after_install">Start service after installation is completed</String>
+  <String Id="java_home_missing">JAVA_HOME environment variable is not set</String>
+  <String Id="log_path">Log-Path:</String>
+  <String Id="service_name">Service name:</String>
+  <String Id="log_level">Log-Level:</String>
+  <String Id="TikaServiceDlgTitle">{\WixUI_Font_Title}TikaService</String>
+  <String Id="TikaServiceDescription">TikaService configuration (Windows service)</String>
+  <String Id="UninstallRemoveLogs">Remove logs</String>
+  <String Id="UninstallRemoveConfig">Remove configs</String>
+  <String Id="UninstallTitle">{\WixUI_Font_Title}Uninstall [ProductName]</String>
+  <String Id="UninstallDescription">Check all data you no longer need</String>
+  <String Id="UninstallDlgTitle">Removal</String>
+
+  <String Id="ServiceExistsWarningDlgTitle">Service already exists</String>
+  <String Id="ServiceExistsWarningTitle">{\WixUI_Font_Title}Warning</String>
+  <String Id="ServiceExistsWarning">This service name is already taken: [SERVICE_NAME]. Please choose another instance name or delete the service (sc delete [SERVICE_NAME])</String>
+
+  <String Id="PortInUseWarningDlgTitle">Port [SERVICE_PORT] already in use</String>
+  <String Id="PortInUseWarningTitle">{\WixUI_Font_Title}Warning</String>
+  <String Id="PortInUseWarning">The port [SERVICE_PORT] is already in use. Please choose another port.</String>
+
+</WixLocalization>

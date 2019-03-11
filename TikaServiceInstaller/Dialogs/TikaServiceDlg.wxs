@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI>
+      <Dialog Id="TikaServiceDlg" Width="370" Height="270" Title="!(loc.InstallDirDlg_Title)">
+        <!-- the first Control is the one that gets the focus when showing the dialog (the next button is here appropriate; else the Edit-Port gets selected)-->
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+          <Publish Property="PORT_TO_CHECK" Value="[SERVICE_PORT]" Order="1">1</Publish>
+          <Publish Event="DoAction" Value="CheckPort" Order="2">1</Publish>
+          <Publish Event="SpawnDialog" Value="PortInUseWarningDlg" Order="3">NOT PORT_IS_AVAILABLE</Publish>
+          <Publish Property="CA_IV_SERVICE_NAME" Value="[SERVICE_NAME]" Order="4">1</Publish>
+          <Publish Event="DoAction" Value="CheckServiceName" Order="5">1</Publish>
+          <Publish Event="SpawnDialog" Value="ServiceExistsWarningDlg" Order="6">CA_IV_SERVICE_EXISTS</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.AdvancedWelcomeEulaDlgBannerBitmap)" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="300" Height="13" Transparent="yes" NoPrefix="yes" Text="!(loc.TikaServiceDlgTitle)" />
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.TikaServiceDescription)" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        <!-- Host -->
+        <Control Type="Text" Id="Text_Host" Width="25" Height="17" X="15" Y="56" Text="Host:" />
+        <Control Type="Edit" Id="Host" Width="80" Height="15" X="79" Y="56" Property="SERVICE_HOST" />
+        <!-- Port -->
+        <Control Type="Text" Id="Text_Port" Width="25" Height="17" X="15" Y="82" Text="Port:" />
+        <Control Type="Edit" Id="Port" Width="80" Height="15" X="79" Y="82" Property="SERVICE_PORT" />
+        <!-- Service Name -->
+        <Control Type="Text" Id="Text_ServiceName" Width="60" Height="12" X="15" Y="109" Text="!(loc.service_name)" />
+        <Control Type="Edit" Id="ServiceName" Width="80" Height="15" X="79" Y="109" Property="SERVICE_NAME" />
+        <!-- Log-Path -->
+        <Control Type="Text" Id="LogPathText" Width="59" Height="14" X="15" Y="138" Text="!(loc.log_path)" />
+        <Control Type="PathEdit" Id="Folder" Width="278" Height="15" X="79" Y="135" Property="LOG_PATH" />
+        <Control Id="ChangeFolder" Type="PushButton" X="79" Y="158" Width="80" Height="17" Text="!(loc.InstallDirDlgChange)">
+          <Publish Event="DoAction" Value="OpenFileChooser" Order="1">1</Publish>
+          <Publish Property="LOG_PATH" Value="[CHOSEN_DIRECTORY]" Order="2">1</Publish>
+        </Control>
+        <!-- Log-Level -->
+        <Control Type="Text" Id="LogLevelText" Width="63" Height="11" X="15" Y="188" Text="!(loc.log_level)" />
+        <Control Type="ComboBox" Property="TIKA_LOGLEVEL" Id="LogLevelCB" ComboList="yes" Width="76" Height="16" X="79" Y="186">
+          <ComboBox Property="TIKA_LOGLEVEL">
+            <ListItem Text="Error" Value="Error" />
+            <ListItem Text="Info" Value="Info" />
+            <ListItem Text="Debug" Value="Debug" />
+            <ListItem Text="Warn" Value="Warn" />
+          </ComboBox>
+        </Control>
+        <!-- Start after install -->
+        <Control Type="CheckBox" Id="StartAfterInstallation" Width="204" Height="17" X="15" Y="210" Text="!(loc.start_after_install)" CheckBoxValue="1" Property="START_AFTER_SETUP" />
+        <!-- Startup-Type -->
+        <Control Type="Text" Id="Text_StartupType" Width="92" Height="17" X="262" Y="52" Text="!(loc.startup)" />
+        <Control Type="RadioButtonGroup" Property="STARTUP_TYPE" Id="StartupType" Width="92" Height="42" X="262" Y="71">
+          <RadioButtonGroup Property="STARTUP_TYPE">
+            <RadioButton Text="!(loc.manual)" Height="17" Value="manual" Width="50" X="0" Y="0" />
+            <RadioButton Text="!(loc.automatic)" Height="17" Value="auto" Width="70" X="0" Y="25" />
+          </RadioButtonGroup>
+        </Control>
+        <!-- Back/Cancel Buttons -->
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

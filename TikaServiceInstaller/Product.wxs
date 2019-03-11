@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?if $(var.Platform) = x64 ?>
+  <?define ProgramFilesFolder = ProgramFiles64Folder?>
+  <?define SystemFolder = System64Folder?>
+  <?define IsWin64 = "yes" ?>
+  <?else?>
+  <?define ProgramFilesFolder = ProgramFilesFolder?>
+  <?define IsWin64 = "no" ?>
+  <?define SystemFolder = SystemFolder?>
+  <?endif?>
+  
+  <!-- this version is intended for the actual msi version (no alphabetical characters allowed) -->
+  <?if $(var.BuildVersion) = '' ?>
+  <?define BuildVersion = 0.0.0 ?>
+  <?endif?>
+
+  <!-- this represents the exact build version (from azure devops) -->
+  <?if $(var.BuildVersionExact) = '' ?>
+  <?define BuildVersionExact = 0.0.0-exact ?>
+  <?endif?>
+
+  <?define Manufacturer = Meusburger Guntram GmbH?>
+
+  <?define ProductName = "TikaService $(var.BuildVersionExact)"?>
+
+  <!-- ATTENTION: Generate ID for each release! -->
+  <Product Id="{81069BBB-47A8-46D8-9C30-880536ABE299}"
+           Name="$(var.ProductName)"
+           Language="1033"
+           Version="$(var.BuildVersion)"
+           Manufacturer="$(var.Manufacturer)"
+           UpgradeCode="ca4ace32-fafd-4968-ae26-c2953f29d1d7">
+    <!-- UpgradeCode: exact id of the project (should never change) -->
+
+    <!-- visible in Programs -->
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Manufacturer="$(var.Manufacturer)"
+             Description="Tika Service"/>
+
+    <MajorUpgrade DowngradeErrorMessage="!(loc.older_version_installed)" />
+
+    <!-- include .cab file in .msi file -->
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- installer icon -->
+    <Icon Id="icon.ico" SourceFile="Resources/WBI.ico"/>
+
+    <Property Id="ARPPRODUCTICON">icon.ico</Property>
+
+    <!-- visible in Programs -->
+    <Property Id="ARPHELPLINK" Value="https://www.wbi-wissensmanagement.com/" />
+    <Property Id="ARPURLINFOABOUT" Value="https://www.wbi-wissensmanagement.com/" />
+
+    <!-- disable modify -->
+    <Property Id="ARPNOMODIFY" Value="1" />
+
+    <!-- for developing purposes -->
+    <!--<Property Id="MSIFASTINSTALL" Value="7" />-->
+
+    <Property Id="MsiLogging" Value="e" />
+
+    <!-- Feature -->
+    <Feature Id="ProductFeature" Title="TikaService" Level="1">
+      <ComponentGroupRef Id="PublishedComponents" />
+      <!-- those files are getting auto-generated -->
+      <ComponentRef Id="ApplicationUninstallShortcut" />
+
+      <ComponentRef Id="ConfigFile"/>
+
+      <ComponentRef Id="StartServiceCondition" />
+
+      <ComponentRef Id="TikaServiceControl" />
+      
+      <ComponentRef Id="RememberUninstallServiceName" />
+      <ComponentRef Id="RememberUninstallPrunsrvName" />
+      <ComponentRef Id="RememberLogDirectory" />
+    </Feature>
+
+    <!-- use .dll which has a custom action to check if a JRE is installed -->
+    <Binary Id="CA_CheckJava" SourceFile="$(var.SolutionDir)/packages/CA_CheckJava.1.0.1/lib/net45/CA_CheckJava.CA.dll" />
+    
+    <!-- dll which provides the functionality to open a dialog to choose a file -->
+    <Binary Id="CA_DirectoryChooser" SourceFile="$(var.SolutionDir)/packages/CA_DirectoryChooser.1.0.0/lib/net45/CA_DirectoryChooser.CA.dll" />
+    
+    <!-- dll to make input validation -->
+    <Binary Id="CA_InputValidation" SourceFile="$(var.SolutionDir)/packages/CA_InputValidation.1.0.0/lib/net45/CA_InputValidation.CA.dll" />
+    
+    <!-- property for the launch condition -->
+    <Property Id="JRE_INSTALLED" Value="0" />
+
+    <!-- create a basic UI for the installer -->
+    <UIRef Id="InstallerUI" />
+
+    <!-- Properties for TikaServiceDlg.wxs -->
+    <Property Id="SERVICE_PORT" Value="9997" />
+    <Property Id="SERVICE_HOST" Value="localhost" />
+    <Property Id='SERVICE_NAME' Value='TikaService' />
+    <Property Id='UNINSTALL_SERVICE_NAME' Secure='yes'>
+      <RegistrySearch Id='SearchUninstallServiceName' Root='HKLM'
+          Key='SOFTWARE\TikaService'
+         Name='[ProductCode]_UninstallServiceName' Type='raw' />
+    </Property>
+    <Property Id='UNINSTALL_PRUNSRV_NAME' Secure='yes'>
+      <RegistrySearch Id='SearchUninstallPrunsrvName' Root='HKLM'
+          Key='SOFTWARE\TikaService'
+         Name='[ProductCode]_UninstallPrunsrvName' Type='raw' />
+    </Property>
+    <Property Id='UNINSTALL_LOG_FOLDER' Secure='yes'>
+      <RegistrySearch Id='SearchUninstallLogFolder' Root='HKLM' Key='SOFTWARE\TikaService'
+                        Name='LogDirectory' Type='raw' />
+    </Property>
+
+    <Property Id="START_AFTER_SETUP" Value="1" />
+    <Property Id="STARTUP_TYPE" Value="auto" />
+    <Property Id="TIKA_LOGLEVEL" Value="Error" />
+
+    <!-- Custom Path; Used in InstallerUI.wxs -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+    <!-- License; Used in InstallerUI.wxs -->
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\Resources\License.rtf" />
+
+    <!-- only start if a JRE is present-->
+    <Condition Message="!(loc.java_missing)">Installed OR NOT JRE_INSTALLED="0"</Condition>
+
+    <!-- check that JAVA_HOME is set -->
+    <Condition Message="!(loc.java_home_missing)"><![CDATA[Installed OR %JAVA_HOME]]></Condition>
+  </Product>
+
+  <Fragment>
+    <!-- ################### Directory structure ######################### -->
+    <!-- all predifined; directory in which the final programm will get installed-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <!-- Program Files folder for 32bit -->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="TikaService" />
+      </Directory>
+
+      <Directory Id="SystemFolder">
+        <Directory Id="LogFiles" Name="LogFiles">
+          <Directory Id="LOG_PATH" Name="TikaService" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- ################### Components ######################### -->
+    <DirectoryRef Id="INSTALLFOLDER">
+      <!-- Ref to the program files folder -->
+      <Component Id="ApplicationUninstallShortcut" Guid="{BFB0CC1E-D0ED-4D2F-B925-E73DDA800E2D}">
+        <!-- Step 1: Add the uninstall shortcut to your installer package -->
+        <Shortcut Id="UninstallProduct"
+                  Name="!(loc.uninstall) $(var.ProductName)"
+                  Description="!(loc.uninstalls) $(var.ProductName)"
+                  Target="[SystemFolder]msiexec.exe"
+                  Arguments="/x [ProductCode]"/>
+        <CreateFolder/>
+        <RemoveFolder Id="ProgramFilesFolder" On="uninstall"  />
+        <!-- the logs folder does not get deleted since it did not get installed -->
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RememberUninstallServiceName">
+        <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
+                        Name='[ProductCode]_UninstallServiceName' Value='[SERVICE_NAME]'
+                        Type='string' />
+      </Component>
+      <Component Id="RememberUninstallPrunsrvName">
+        <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
+                        Name='[ProductCode]_UninstallPrunsrvName' Value='[PRUNSRV_NAME]'
+                        Type='string' />
+      </Component>
+      <Component Id="RememberLogDirectory">
+        <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
+                        Name='LogDirectory' Value='[LOG_PATH]'
+                        Type='string' />
+      </Component>
+      <Component Id="StartServiceCondition" Guid="4928D96B-438D-4193-8706-2F5AC0082D80" KeyPath="yes">
+        <Condition>START_AFTER_SETUP</Condition>
+        <ServiceControl Id="StartTikaService" Name="[SERVICE_NAME]" Start="install" />
+      </Component>
+      <Component Id="ConfigFile" Guid="{0D17F6EC-6D51-43E6-9246-6CB99AA870E1}">
+        <Condition>NOT WIX_UPGRADE_DETECTED</Condition>
+        <IniFile Id="WritePort" Action="addLine" Directory="dirF5D9BDF13CBC346EDDFD6D0959FFB838" Section="default" Name="service.config" Key="port" Value="[SERVICE_PORT]" />
+        <IniFile Id="WriteHost" Action="addLine" Directory="dirF5D9BDF13CBC346EDDFD6D0959FFB838" Section="default" Name="service.config" Key="host" Value="[SERVICE_HOST]" />
+      </Component>
+      <Component Id="TikaServiceControl" Guid="{9E9FFE41-A7CD-4F20-A058-17A65716EE4B}">
+        <ServiceConfig FirstFailureActionType="restart"
+                       SecondFailureActionType="restart"
+                       ThirdFailureActionType="restart"
+                       RebootMessage="Failure actions do not specify reboot"
+                       ResetPeriodInDays="1"
+                       RestartServiceDelayInSeconds="30"
+                       ServiceName="[SERVICE_NAME]"
+                       xmlns="http://schemas.microsoft.com/wix/UtilExtension" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- execute CheckJREInstalled before LaunchConditions -->
+    <InstallUISequence>
+      <Custom Action="CheckJREInstalled" Before="LaunchConditions">NOT Installed</Custom>
+    </InstallUISequence>
+
+    <InstallExecuteSequence>
+      <Custom Action="CheckJREInstalled" Before="LaunchConditions">NOT Installed</Custom>
+      <!-- install service -->
+      <Custom Action="ReplaceLOG_PATH" Before="InstallTS">NOT Installed</Custom>
+      <Custom Action="InstallTS" After="InstallFiles">NOT Installed</Custom>
+
+      <!-- stop the service before uninstall-->
+      <Custom Action="StopTS" After="InstallInitialize">Installed</Custom>
+
+      <!-- uninstall after stopping the service -->
+      <Custom Action="UninstallTSProcrun" After="StopTS">Installed</Custom>
+    </InstallExecuteSequence>
+
+    <!-- DllEntry is the function name of the CustomAction -->
+    <CustomAction Id="CheckJREInstalled" BinaryKey="CA_CheckJava" DllEntry="CheckJREInstalled" Execute="immediate" />
+
+    <!-- use prunsrv.exe if java is installed for 32bit; else use prunsrv64.exe -->
+    <SetProperty Action="set32bitPRUNSRV_NAME" Id="PRUNSRV_NAME" Value="prunsrv.exe" After="CheckJREInstalled"><![CDATA[JRE_INSTALLED="32bit"]]></SetProperty>
+    <SetProperty Action="set64bitPRUNSRV_NAME" Id="PRUNSRV_NAME" Value="prunsrv64.exe" After="CheckJREInstalled"><![CDATA[JRE_INSTALLED="64bit"]]></SetProperty>
+    
+    <!-- open file chooser-->
+    <CustomAction Id="OpenFileChooser" BinaryKey="CA_DirectoryChooser" DllEntry="OpenFileChooser" />
+
+    <!-- check if port is in use -->
+    <CustomAction Id="CheckPort" BinaryKey="CA_InputValidation" DllEntry="CheckPort" Execute="immediate" />
+
+    <!-- check if service exists -->
+    <CustomAction Id="CheckServiceName" BinaryKey="CA_InputValidation" DllEntry="ExistsService" Execute="immediate" />
+    
+    <!-- replace backslashes in the LOG_PATH with frontslashes; because if this path ends with a backslash the next double quote gets escaped -->
+    <SetProperty Before="ReplaceLOG_PATH" Id="PROPERTY_TO_REPLACE_BACKSLASH" Value="LOG_PATH" Sequence="execute" />
+    <CustomAction Id="ReplaceLOG_PATH" DllEntry="ReplaceBackslashWithFrontslash" BinaryKey="CA_InputValidation" />
+
+    <!-- Install the Service using CAQuietExec (so no cmd-window is shown) -->
+    <CustomAction Id="InstallTS" BinaryKey="WixCA" DllEntry="CAQuietExec" Impersonate="no" Execute="deferred" Return="check"  />
+    <SetProperty Id="InstallTS" Value="&quot;cmd&quot; /V /C &quot;set PRUNSRV_NAME=[PRUNSRV_NAME]&amp;&amp;set TIKA_LOGLEVEL=[TIKA_LOGLEVEL]&amp;&amp;set TIKA_LOG_PATH=[LOG_PATH]&amp;&amp;set TIKA_STARTUP_TYPE=[STARTUP_TYPE]&amp;&amp;&quot;[INSTALLFOLDER]install/install.bat&quot; [SERVICE_NAME]&quot;" Sequence="execute" Before="InstallTS" />
+
+    <!-- ignore return, because if the service is not running, it cannot be stopped -->
+    <CustomAction Id="StopTS" BinaryKey="WixCA" DllEntry="CAQuietExec" Impersonate="no" Execute="deferred" Return="ignore" />
+    <SetProperty Id="StopTS" Value="&quot;[INSTALLFOLDER]install/[UNINSTALL_PRUNSRV_NAME]&quot; //SS//[UNINSTALL_SERVICE_NAME]" Sequence="execute" Before="StopTS" />
+
+    <!-- uninstall the service as procrun service application (not windows service!) -->
+    <CustomAction Id="UninstallTSProcrun" BinaryKey="WixCA" DllEntry="CAQuietExec" Impersonate="no" Execute="deferred" Return="ignore" />
+    <SetProperty Id="UninstallTSProcrun" Value="&quot;[INSTALLFOLDER]install/[UNINSTALL_PRUNSRV_NAME]&quot; //DS//[UNINSTALL_SERVICE_NAME]" Sequence="execute" Before="UninstallTSProcrun" />
+  </Fragment>
+</Wix>
