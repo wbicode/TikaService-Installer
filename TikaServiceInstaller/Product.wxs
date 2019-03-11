@@ -84,7 +84,7 @@
     <Binary Id="CA_CheckJava" SourceFile="$(var.SolutionDir)/packages/CA_CheckJava.1.0.1/lib/net45/CA_CheckJava.CA.dll" />
     
     <!-- dll which provides the functionality to open a dialog to choose a file -->
-    <Binary Id="CA_DirectoryChooser" SourceFile="$(var.SolutionDir)/packages/CA_DirectoryChooser.1.0.0/lib/net45/CA_DirectoryChooser.CA.dll" />
+    <Binary Id="CA_DirectoryChooser" SourceFile="$(var.SolutionDir)/packages/CA_DirectoryChooser.1.0.1/lib/net45/CA_DirectoryChooser.CA.dll" />
     
     <!-- dll to make input validation -->
     <Binary Id="CA_InputValidation" SourceFile="$(var.SolutionDir)/packages/CA_InputValidation.1.0.1/lib/net45/CA_InputValidation.CA.dll" />
