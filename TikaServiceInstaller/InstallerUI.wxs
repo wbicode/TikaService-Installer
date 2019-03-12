@@ -59,7 +59,7 @@ Patch dialog sequence:
       <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="TikaServiceDlg" Order="2">LicenseAccepted = "1" AND NOT WIX_UPGRADE_DETECTED</Publish>
 
       <Publish Dialog="TikaServiceDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1">1</Publish>
-      <Publish Dialog="TikaServiceDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="7"><![CDATA[NOT CA_IV_SERVICE_EXISTS AND PORT_IS_AVAILABLE]]></Publish>
+      <Publish Dialog="TikaServiceDlg" Control="Next" Event="NewDialog" Value="CustomInstallDirDlg" Order="7"><![CDATA[NOT CA_IV_SERVICE_EXISTS AND PORT_IS_AVAILABLE]]></Publish>
 
       <!-- warning that the servicename is already taken -->
       <Publish Dialog="ServiceExistsWarningDlg" Control="Back" Event="EndDialog" Value="Return">1</Publish>
@@ -67,15 +67,13 @@ Patch dialog sequence:
       <!-- warning that the port is already in use -->
       <Publish Dialog="PortInUseWarningDlg" Control="Back" Event="EndDialog" Value="Return">1</Publish>
 
-      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="TikaServiceDlg">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="DoAction" Value="WixUIValidatePath" Order="2">NOT WIXUI_DONTVALIDATEPATH</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="SpawnDialog" Value="InvalidDirDlg" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="4">WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"</Publish>
-      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
+      <Publish Dialog="CustomInstallDirDlg" Control="Back" Event="NewDialog" Value="TikaServiceDlg">1</Publish>
+      <Publish Dialog="CustomInstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
+      <Publish Dialog="CustomInstallDirDlg" Control="Next" Event="DoAction" Value="WixUIValidatePath" Order="2">NOT WIXUI_DONTVALIDATEPATH</Publish>
+      <Publish Dialog="CustomInstallDirDlg" Control="Next" Event="SpawnDialog" Value="InvalidDirDlg" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
+      <Publish Dialog="CustomInstallDirDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="4">WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"</Publish>
 
-      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="TikaServiceDlg" Order="1">NOT Installed</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="CustomInstallDirDlg" Order="1">NOT Installed</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="2">WIX_UPGRADE_DETECTED</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="3">Installed AND NOT PATCH</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="4">Installed AND PATCH</Publish>

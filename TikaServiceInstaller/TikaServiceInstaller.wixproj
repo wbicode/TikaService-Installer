@@ -26,6 +26,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ComponentsGenerated.wxs" />
+    <Compile Include="Dialogs\CustomInstallDirDlg.wxs" />
     <Compile Include="Dialogs\PortInUseWarningDlg.wxs" />
     <Compile Include="Dialogs\ServiceExistsWarningDlg.wxs" />
     <Compile Include="Dialogs\UninstallDlg.wxs" />
