@@ -29,8 +29,9 @@
         <Control Type="Text" Id="LogPathText" Width="59" Height="14" X="15" Y="138" Text="!(loc.log_path)" />
         <Control Type="PathEdit" Id="Folder" Width="278" Height="15" X="79" Y="135" Property="LOG_PATH" />
         <Control Id="ChangeFolder" Type="PushButton" X="79" Y="158" Width="80" Height="17" Text="!(loc.InstallDirDlgChange)">
-          <Publish Event="DoAction" Value="OpenFileChooser" Order="1">1</Publish>
-          <Publish Property="LOG_PATH" Value="[CHOSEN_DIRECTORY]" Order="2">CHOSEN_DIRECTORY</Publish>
+          <Publish Property="CA_DC_OPEN_DIR" Value="[LogFiles]" Order="1">1</Publish>
+          <Publish Event="DoAction" Value="OpenFileChooser" Order="2">1</Publish>
+          <Publish Property="LOG_PATH" Value="[CHOSEN_DIRECTORY]" Order="3">CHOSEN_DIRECTORY</Publish>
         </Control>
         <!-- Log-Level -->
         <Control Type="Text" Id="LogLevelText" Width="63" Height="11" X="15" Y="188" Text="!(loc.log_level)" />
