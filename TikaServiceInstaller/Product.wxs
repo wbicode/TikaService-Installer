@@ -136,12 +136,12 @@
     <!-- all predifined; directory in which the final programm will get installed-->
     <Directory Id="TARGETDIR" Name="SourceDir">
 
-      <!-- Program Files folder for 32bit -->
-      <Directory Id="ProgramFilesFolder">
+      <!-- Program Files folder for our bitness -->
+      <Directory Id="$(var.ProgramFilesFolder)">
         <Directory Id="INSTALLFOLDER" Name="TikaService" />
       </Directory>
 
-      <Directory Id="SystemFolder">
+      <Directory Id="$(var.SystemFolder)">
         <Directory Id="LogFiles" Name="LogFiles">
           <Directory Id="LOG_PATH" Name="TikaService" />
         </Directory>
@@ -156,7 +156,7 @@
         <Shortcut Id="UninstallProduct"
                   Name="!(loc.uninstall) $(var.ProductName)"
                   Description="!(loc.uninstalls) $(var.ProductName)"
-                  Target="[SystemFolder]msiexec.exe"
+                  Target="[$(var.SystemFolder)]msiexec.exe"
                   Arguments="/x [ProductCode]"/>
         <CreateFolder/>
         <RemoveFolder Id="ProgramFilesFolder" On="uninstall"  />
