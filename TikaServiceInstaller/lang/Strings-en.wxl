@@ -5,7 +5,7 @@
   <String Id="uninstalls">Uninstalls</String>
   <String Id="manual">Manual</String>
   <String Id="automatic">Automatic</String>
-  <String Id="older_version_installed">A newer version of [ProductName] is already installed.</String>
+  <String Id="newer_version_installed">A newer version of TikaService is already installed.</String>
   <String Id="startup">Startup:</String>
   <String Id="start_after_install">Start service after installation is completed</String>
   <String Id="java_home_missing">JAVA_HOME environment variable is not set</String>

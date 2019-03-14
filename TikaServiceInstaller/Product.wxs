@@ -41,7 +41,7 @@
              Manufacturer="$(var.Manufacturer)"
              Description="Tika Service"/>
 
-    <MajorUpgrade DowngradeErrorMessage="!(loc.older_version_installed)" />
+    <MajorUpgrade DowngradeErrorMessage="!(loc.newer_version_installed)" />
 
     <!-- include .cab file in .msi file -->
     <MediaTemplate EmbedCab="yes" />

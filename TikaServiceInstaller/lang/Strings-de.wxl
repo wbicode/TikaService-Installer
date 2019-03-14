@@ -5,7 +5,7 @@
   <String Id="uninstalls">Deinstalliert</String>
   <String Id="manual">Manuell</String>
   <String Id="automatic">Automatisch</String>
-  <String Id="older_version_installed">Eine neuere Version von [ProductName] ist bereits installiert.</String>
+  <String Id="newer_version_installed">Eine neuere Version von TikaService ist bereits installiert.</String>
   <String Id="startup">Starttyp:</String>
   <String Id="start_after_install">Starte den Service nach der Installation</String>
   <String Id="java_home_missing">JAVA_HOME Umgebungsvariable ist nicht definiert</String>
