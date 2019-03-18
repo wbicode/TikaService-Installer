@@ -41,7 +41,7 @@
              Manufacturer="$(var.Manufacturer)"
              Description="Tika Service"/>
 
-    <MajorUpgrade DowngradeErrorMessage="!(loc.older_version_installed)" />
+    <MajorUpgrade DowngradeErrorMessage="!(loc.newer_version_installed)" />
 
     <!-- include .cab file in .msi file -->
     <MediaTemplate EmbedCab="yes" />
@@ -81,7 +81,7 @@
     </Feature>
 
     <!-- use .dll which has a custom action to check if a JRE is installed -->
-    <Binary Id="CA_CheckJava" SourceFile="$(var.SolutionDir)/packages/CA_CheckJava.1.0.1/lib/net45/CA_CheckJava.CA.dll" />
+    <Binary Id="CA_CheckJava" SourceFile="$(var.SolutionDir)/packages/CA_CheckJava.1.0.3/lib/net45/CA_CheckJava.CA.dll" />
     
     <!-- dll which provides the functionality to open a dialog to choose a file -->
     <Binary Id="CA_DirectoryChooser" SourceFile="$(var.SolutionDir)/packages/CA_DirectoryChooser.1.0.1/lib/net45/CA_DirectoryChooser.CA.dll" />
@@ -99,16 +99,19 @@
     <Property Id="SERVICE_PORT" Value="9997" />
     <Property Id="SERVICE_HOST" Value="localhost" />
     <Property Id='SERVICE_NAME' Value='TikaService' />
+    
     <Property Id='UNINSTALL_SERVICE_NAME' Secure='yes'>
       <RegistrySearch Id='SearchUninstallServiceName' Root='HKLM'
           Key='SOFTWARE\TikaService'
          Name='[ProductCode]_UninstallServiceName' Type='raw' />
     </Property>
+    
     <Property Id='UNINSTALL_PRUNSRV_NAME' Secure='yes'>
       <RegistrySearch Id='SearchUninstallPrunsrvName' Root='HKLM'
           Key='SOFTWARE\TikaService'
          Name='[ProductCode]_UninstallPrunsrvName' Type='raw' />
     </Property>
+    
     <Property Id='UNINSTALL_LOG_FOLDER' Secure='yes'>
       <RegistrySearch Id='SearchUninstallLogFolder' Root='HKLM' Key='SOFTWARE\TikaService'
                         Name='LogDirectory' Type='raw' />
@@ -136,12 +139,12 @@
     <!-- all predifined; directory in which the final programm will get installed-->
     <Directory Id="TARGETDIR" Name="SourceDir">
 
-      <!-- Program Files folder for 32bit -->
-      <Directory Id="ProgramFilesFolder">
+      <!-- Program Files folder for our bitness -->
+      <Directory Id="$(var.ProgramFilesFolder)">
         <Directory Id="INSTALLFOLDER" Name="TikaService" />
       </Directory>
 
-      <Directory Id="SystemFolder">
+      <Directory Id="$(var.SystemFolder)">
         <Directory Id="LogFiles" Name="LogFiles">
           <Directory Id="LOG_PATH" Name="TikaService" />
         </Directory>
@@ -156,7 +159,7 @@
         <Shortcut Id="UninstallProduct"
                   Name="!(loc.uninstall) $(var.ProductName)"
                   Description="!(loc.uninstalls) $(var.ProductName)"
-                  Target="[SystemFolder]msiexec.exe"
+                  Target="[$(var.SystemFolder)]msiexec.exe"
                   Arguments="/x [ProductCode]"/>
         <CreateFolder/>
         <RemoveFolder Id="ProgramFilesFolder" On="uninstall"  />
@@ -167,12 +170,12 @@
     <DirectoryRef Id="TARGETDIR">
       <Component Id="RememberUninstallServiceName">
         <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
-                        Name='[ProductCode]_UninstallServiceName' Value='[SERVICE_NAME]'
+                        Name='ServiceName' Value='[SERVICE_NAME]'
                         Type='string' />
       </Component>
       <Component Id="RememberUninstallPrunsrvName">
         <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
-                        Name='[ProductCode]_UninstallPrunsrvName' Value='[PRUNSRV_NAME]'
+                        Name='PrunsrvName' Value='[PRUNSRV_NAME]'
                         Type='string' />
       </Component>
       <Component Id="RememberLogDirectory">
