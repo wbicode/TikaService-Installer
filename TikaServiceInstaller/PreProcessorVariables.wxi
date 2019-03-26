@@ -2,7 +2,7 @@
 <Include>
 
   <?define Manufacturer = Meusburger Guntram GmbH?>
-  <?define ProductName = "TikaService $(var.BuildVersionExact)"?>
+  <?define ProductName = "TikaService $(var.BuildVersionExact) ($(var.Platform))"?>
 
   <!-- platform specifics -->
   <?if $(var.Platform) = x64 ?>
