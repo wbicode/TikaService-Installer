@@ -59,6 +59,7 @@
       <!-- those files are getting auto-generated -->
       <ComponentRef Id="ApplicationUninstallShortcut" />
 
+      <!-- configure the service using the .ini file -->
       <ComponentRef Id="ConfigFile"/>
 
       <ComponentRef Id="StartServiceCondition" />
