@@ -34,11 +34,13 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Binaries.wxs" />
     <Compile Include="ComponentsGenerated.wxs" />
     <Compile Include="Dialogs\CustomInstallDirDlg.wxs" />
     <Compile Include="Dialogs\PortInUseWarningDlg.wxs" />
     <Compile Include="Dialogs\ServiceExistsWarningDlg.wxs" />
     <Compile Include="Dialogs\UninstallDlg.wxs" />
+    <Compile Include="DirectoryStructure.wxs" />
     <Compile Include="InstallerUI.wxs" />
     <Compile Include="Dialogs\TikaServiceDlg.wxs" />
     <Compile Include="Product.wxs" />
