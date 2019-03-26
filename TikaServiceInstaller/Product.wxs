@@ -66,9 +66,8 @@
 
       <ComponentRef Id="TikaServiceControl" />
       
-      <ComponentRef Id="RememberUninstallServiceName" />
-      <ComponentRef Id="RememberUninstallPrunsrvName" />
-      <ComponentRef Id="RememberLogDirectory" />
+      <!-- store ServiceName, LogPath and Prunsrv name inside registry (config values get read from the installation directory) -->
+      <ComponentRef Id="Registry_StoreConfiguration" />
     </Feature>
     
     <!-- property for the launch condition -->
@@ -135,17 +134,13 @@
     </DirectoryRef>
 
     <DirectoryRef Id="TARGETDIR">
-      <Component Id="RememberUninstallServiceName">
+      <Component Id="Registry_StoreConfiguration">
         <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
                         Name='ServiceName' Value='[SERVICE_NAME]'
                         Type='string' />
-      </Component>
-      <Component Id="RememberUninstallPrunsrvName">
         <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
                         Name='PrunsrvName' Value='[PRUNSRV_NAME]'
                         Type='string' />
-      </Component>
-      <Component Id="RememberLogDirectory">
         <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
                         Name='LogDirectory' Value='[LOG_PATH]'
                         Type='string' />
