@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-  <?if $(var.Platform) = x64 ?>
-  <?define ProgramFilesFolder = ProgramFiles64Folder?>
-  <?define SystemFolder = System64Folder?>
-  <?define IsWin64 = "yes" ?>
-  <?else?>
-  <?define ProgramFilesFolder = ProgramFilesFolder?>
-  <?define IsWin64 = "no" ?>
-  <?define SystemFolder = SystemFolder?>
-  <?endif?>
+  <?include PreProcessorVariables.wxi ?>
   
   <!-- this version is intended for the actual msi version (no alphabetical characters allowed) -->
   <?if $(var.BuildVersion) = '' ?>
@@ -20,10 +12,6 @@
   <?if $(var.BuildVersionExact) = '' ?>
   <?define BuildVersionExact = 0.0.0-exact ?>
   <?endif?>
-
-  <?define Manufacturer = Meusburger Guntram GmbH?>
-
-  <?define ProductName = "TikaService $(var.BuildVersionExact)"?>
 
   <!-- ATTENTION: Generate ID for each release! -->
   <Product Id="{81069BBB-47A8-46D8-9C30-880536ABE299}"

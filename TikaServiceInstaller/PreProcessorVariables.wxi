@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <?define Manufacturer = Meusburger Guntram GmbH?>
+  <?define ProductName = "TikaService $(var.BuildVersionExact)"?>
+
+  <!-- platform specifics -->
+  <?if $(var.Platform) = x64 ?>
+  <?define IsWin64 = "yes" ?>
+  <?define ProgramFilesFolder = ProgramFiles64Folder ?>
+  <?define SystemFolder = System64Folder?>
+  <?define WixQuietExec = WixQuietExec64 ?>
+  <?else?>
+  <?define IsWin64 = "no" ?>
+  <?define ProgramFilesFolder = ProgramFilesFolder ?>
+  <?define SystemFolder = SystemFolder ?>
+  <?define WixQuietExec = WixQuietExec ?>
+  <?endif?>
+
+</Include>

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Content Include="neverOverwriteConfigs.xslt" />
     <Content Include="packages.config" />
+    <Content Include="PreProcessorVariables.wxi" />
     <Content Include="Resources\License.rtf" />
     <Content Include="Resources\warn.ico" />
     <Content Include="Resources\WBI.ico" />
