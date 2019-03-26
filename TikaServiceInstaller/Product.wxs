@@ -111,15 +111,21 @@
 
     <DirectoryRef Id="TARGETDIR">
       <Component Id="Registry_StoreConfiguration">
-        <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
-                        Name='ServiceName' Value='[SERVICE_NAME]'
-                        Type='string' />
-        <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
-                        Name='PrunsrvName' Value='[PRUNSRV_NAME]'
-                        Type='string' />
-        <RegistryValue Root='HKLM' Key='SOFTWARE\TikaService'
-                        Name='LogDirectory' Value='[LOG_PATH]'
-                        Type='string' />
+        <RegistryValue Root='HKLM'
+                       Key='SOFTWARE\TikaService'
+                       Name='ServiceName'
+                       Value='[SERVICE_NAME]'
+                       Type='string' />
+        <RegistryValue Root='HKLM'
+                       Key='SOFTWARE\TikaService'
+                       Name='PrunsrvName'
+                       Value='[PRUNSRV_NAME]'
+                       Type='string' />
+        <RegistryValue Root='HKLM'
+                       Key='SOFTWARE\TikaService'
+                       Name='LogDirectory'
+                       Value='[LOG_PATH]'
+                       Type='string' />
       </Component>
       <Component Id="StartServiceCondition" Guid="4928D96B-438D-4193-8706-2F5AC0082D80" KeyPath="yes">
         <Condition>START_AFTER_SETUP</Condition>
