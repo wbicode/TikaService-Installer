@@ -87,6 +87,7 @@
          Name='[ProductCode]_UninstallPrunsrvName' Type='raw' />
     </Property>
     
+    <!-- log folder -->
     <Property Id='UNINSTALL_LOG_FOLDER' Secure='yes'>
       <RegistrySearch Id='SearchUninstallLogFolder' Root='HKLM' Key='SOFTWARE\TikaService'
                         Name='LogDirectory' Type='raw' />
@@ -102,6 +103,7 @@
     <!-- License; Used in InstallerUI.wxs -->
     <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\Resources\License.rtf" />
 
+    <!-- LaunchConditions; message gets displayed when the condition fails; http://wixtoolset.org/documentation/manual/v3/xsd/wix/condition.html -->
     <!-- only start if a JRE is present-->
     <Condition Message="!(loc.java_missing)">Installed OR NOT JRE_INSTALLED="0"</Condition>
 
