@@ -3,15 +3,7 @@
 
   <?include PreProcessorVariables.wxi ?>
   
-  <!-- this version is intended for the actual msi version (no alphabetical characters allowed) -->
-  <?if $(var.BuildVersion) = '' ?>
-  <?define BuildVersion = 0.0.0 ?>
-  <?endif?>
-
-  <!-- this represents the exact build version (from azure devops) -->
-  <?if $(var.BuildVersionExact) = '' ?>
-  <?define BuildVersionExact = 0.0.0-exact ?>
-  <?endif?>
+  <!-- $(var.BuildVersion) and $(var.BuildVersionExact) come from the .wixproj file -->
 
   <!-- ATTENTION: Generate ID for each release! -->
   <Product Id="{81069BBB-47A8-46D8-9C30-880536ABE299}"
