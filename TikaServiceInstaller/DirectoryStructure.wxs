@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <!-- ################### Directory structure ######################### -->
+    <!-- all predifined; directory in which the final programm will get installed-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <!-- Program Files folder for our bitness -->
+      <Directory Id="$(var.ProgramFilesFolder)">
+        <Directory Id="INSTALLFOLDER" Name="TikaService" />
+      </Directory>
+
+      <Directory Id="$(var.SystemFolder)">
+        <Directory Id="LogFiles" Name="LogFiles">
+          <Directory Id="LOG_PATH" Name="TikaService" />
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+</Wix>
