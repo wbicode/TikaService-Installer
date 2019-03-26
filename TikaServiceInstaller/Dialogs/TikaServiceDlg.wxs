@@ -10,7 +10,7 @@
           <Publish Event="SpawnDialog" Value="PortInUseWarningDlg" Order="3">NOT PORT_IS_AVAILABLE</Publish>
           <Publish Property="CA_IV_SERVICE_NAME" Value="[SERVICE_NAME]" Order="4">1</Publish>
           <Publish Event="DoAction" Value="CheckServiceName" Order="5">1</Publish>
-          <Publish Event="SpawnDialog" Value="ServiceExistsWarningDlg" Order="6">CA_IV_SERVICE_EXISTS</Publish>
+          <Publish Event="SpawnDialog" Value="ServiceExistsWarningDlg" Order="6">CA_IV_SERVICE_EXISTS AND NOT WIX_UPGRADE_DETECTED</Publish>
         </Control>
         <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.AdvancedWelcomeEulaDlgBannerBitmap)" />
         <Control Id="Title" Type="Text" X="15" Y="6" Width="300" Height="13" Transparent="yes" NoPrefix="yes" Text="!(loc.TikaServiceDlgTitle)" />
