@@ -65,7 +65,9 @@
 
     <!-- Feature -->
     <Feature Id="ProductFeature" Title="TikaService" Level="1">
+      <!-- generated files from head (actual TikaService files) -->
       <ComponentGroupRef Id="PublishedComponents" />
+      
       <!-- those files are getting auto-generated -->
       <ComponentRef Id="ApplicationUninstallShortcut" />
 
@@ -97,6 +99,7 @@
          Name='[ProductCode]_UninstallServiceName' Type='raw' />
     </Property>
     
+    <!-- prunsrv name used when installing (correct bitness for uninstallation) -->
     <Property Id='UNINSTALL_PRUNSRV_NAME' Secure='yes'>
       <RegistrySearch Id='SearchUninstallPrunsrvName' Root='HKLM'
           Key='SOFTWARE\TikaService'
