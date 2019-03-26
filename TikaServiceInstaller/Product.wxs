@@ -4,6 +4,7 @@
   <?include PreProcessorVariables.wxi ?>
   
   <!-- $(var.BuildVersion) and $(var.BuildVersionExact) come from the .wixproj file -->
+  <!-- these variables come from GitVersion (see: https://github.com/GitTools/GitVersion ) -->
 
   <!-- ATTENTION: Generate ID for each release! -->
   <Product Id="{81069BBB-47A8-46D8-9C30-880536ABE299}"
