@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
 
-  <?define Manufacturer = Meusburger Guntram GmbH?>
+  <?define Manufacturer = Meusburger Guntram GmbH ?>
   <?define ProductName = "TikaService $(var.BuildVersionExact) ($(var.Platform))"?>
 
   <!-- platform specifics -->
