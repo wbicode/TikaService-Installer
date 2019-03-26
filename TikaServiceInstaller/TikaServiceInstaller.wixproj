@@ -43,6 +43,7 @@
     <Compile Include="DirectoryStructure.wxs" />
     <Compile Include="InstallerUI.wxs" />
     <Compile Include="Dialogs\TikaServiceDlg.wxs" />
+    <Compile Include="PreviousProperties.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>

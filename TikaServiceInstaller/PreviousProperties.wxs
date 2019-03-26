@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <!-- This file reads all properties from a previous installation (used for an upgrade) -->
+  
+  <!-- Properties loaded: 
+  
+    * PREVIOUS_SERVICE_NAME (used to uninstall the service)
+    * PREVIOUS_PRUNSRV_NAME (used to uninstall and stop the service; in the correct bitness)
+    * PREVIOUS_LOG_PATH (for an upgrade)
+  
+  -->
+  
+	<Fragment>
+    <!-- the previous installed service name-->
+    <Property Id='PREVIOUS_SERVICE_NAME' Secure='yes'>
+      <RegistrySearch Id='SearchPreviousServiceName' Root='HKLM'
+          Key='SOFTWARE\TikaService'
+         Name='ServiceName' Type='raw' />
+    </Property>
+    <!-- used to get the service name of version 1.0.0 (accidentally stored product code in variable name) -->
+    <Property Id='PREVIOUS_SERVICE_NAME_1_0_0' Secure='yes'>
+      <RegistrySearch Id='SearchPreviousServiceName_1_0_0' Root='HKLM'
+          Key='SOFTWARE\TikaService'
+         Name='A0BB4AB4-7255-4D32-9BC8-6E0F3E153766_UninstallServiceName' Type='raw' />
+    </Property>
+    <Property Id='PREVIOUS_SERVICE_NAME_1_0_1FF' Secure='yes'>
+      <RegistrySearch Id='SearchPreviousServiceName_1_0_1ff' Root='HKLM'
+          Key='SOFTWARE\TikaService'
+         Name='81069BBB-47A8-46D8-9C30-880536ABE299_UninstallServiceName' Type='raw' />
+    </Property>
+    <SetProperty Action='SetPrevServiceName' After='CostFinalize' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME]'>PREVIOUS_SERVICE_NAME</SetProperty>
+    <SetProperty Action='SetPrevServiceName_1_0_0' After='CostFinalize' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME_1_0_0]'>PREVIOUS_SERVICE_NAME_1_0_0</SetProperty>
+    <SetProperty Action='SetPrevServiceName_1_0_1ff' After='CostFinalize' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME_1_0_1FF]'>PREVIOUS_SERVICE_NAME_1_0_1FF</SetProperty>
+
+    <!-- prunsrv name used when installing (correct bitness for uninstallation) -->
+    <Property Id='PREVIOUS_PRUNSRV_NAME' Secure='yes'>
+      <RegistrySearch Id='SearchPreviousPrunsrvName' Root='HKLM'
+          Key='SOFTWARE\TikaService'
+         Name='PrunsrvName' Type='raw' />
+    </Property>
+    <!-- used to get the service name of version 1.0.0 (accidentally stored product code in variable name) -->
+    <Property Id='PREVIOUS_PRUNSRV_NAME_1_0_0' Secure='yes'>
+      <RegistrySearch Id='SearchPreviousPrunsrvName_1_0_0' Root='HKLM'
+          Key='SOFTWARE\TikaService'
+         Name='A0BB4AB4-7255-4D32-9BC8-6E0F3E153766_PrunsrvName' Type='raw' />
+    </Property>
+    <Property Id='PREVIOUS_PRUNSRV_NAME_1_0_1FF' Secure='yes'>
+      <RegistrySearch Id='SearchPreviousPrunsrvName_1_0_1ff' Root='HKLM'
+          Key='SOFTWARE\TikaService'
+         Name='81069BBB-47A8-46D8-9C30-880536ABE299_PrunsrvName' Type='raw' />
+    </Property>
+    <SetProperty Action='SetPrevPrunsrvName' After='CostFinalize' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME]'>PREVIOUS_PRUNSRV_NAME</SetProperty>
+    <SetProperty Action='SetPrevPrunsrvName_1_0_0' After='CostFinalize' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME_1_0_0]'>PREVIOUS_PRUNSRV_NAME_1_0_0</SetProperty>
+    <SetProperty Action='SetPrevPrunsrvName_1_0_1ff' After='CostFinalize' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME_1_0_1FF]'>PREVIOUS_PRUNSRV_NAME_1_0_1FF</SetProperty>
+
+    <!-- log folder; is the same since 1.0.0 -->
+    <Property Id='PREVIOUS_LOG_PATH' Secure='yes'>
+      <RegistrySearch Id='SearchUninstallLogFolder' Root='HKLM' Key='SOFTWARE\TikaService'
+                        Name='LogDirectory' Type='raw' />
+    </Property>
+    <SetProperty Action='SetPreviousLogPath' After='CostFinalize' Id='LOG_PATH' Value='[PREVIOUS_LOG_PATH]'>PREVIOUS_LOG_PATH</SetProperty>
+
+    <Property Id='PREVIOUS_STARTUP_TYPE' />
+    <Property Id='PREVIOUS_TIKA_LOGLEVEL' />
+  </Fragment>
+</Wix>

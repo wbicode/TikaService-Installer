@@ -74,25 +74,6 @@
     <Property Id="SERVICE_HOST" Value="localhost" />
     <Property Id='SERVICE_NAME' Value='TikaService' />
     
-    <Property Id='UNINSTALL_SERVICE_NAME' Secure='yes'>
-      <RegistrySearch Id='SearchUninstallServiceName' Root='HKLM'
-          Key='SOFTWARE\TikaService'
-         Name='[ProductCode]_UninstallServiceName' Type='raw' />
-    </Property>
-    
-    <!-- prunsrv name used when installing (correct bitness for uninstallation) -->
-    <Property Id='UNINSTALL_PRUNSRV_NAME' Secure='yes'>
-      <RegistrySearch Id='SearchUninstallPrunsrvName' Root='HKLM'
-          Key='SOFTWARE\TikaService'
-         Name='[ProductCode]_UninstallPrunsrvName' Type='raw' />
-    </Property>
-    
-    <!-- log folder -->
-    <Property Id='UNINSTALL_LOG_FOLDER' Secure='yes'>
-      <RegistrySearch Id='SearchUninstallLogFolder' Root='HKLM' Key='SOFTWARE\TikaService'
-                        Name='LogDirectory' Type='raw' />
-    </Property>
-
     <Property Id="START_AFTER_SETUP" Value="1" />
     <Property Id="STARTUP_TYPE" Value="auto" />
     <Property Id="TIKA_LOGLEVEL" Value="Error" />
@@ -205,10 +186,10 @@
 
     <!-- ignore return, because if the service is not running, it cannot be stopped -->
     <CustomAction Id="StopTS" BinaryKey="WixCA" DllEntry="CAQuietExec" Impersonate="no" Execute="deferred" Return="ignore" />
-    <SetProperty Id="StopTS" Value="&quot;[INSTALLFOLDER]install/[UNINSTALL_PRUNSRV_NAME]&quot; //SS//[UNINSTALL_SERVICE_NAME]" Sequence="execute" Before="StopTS" />
+    <SetProperty Id="StopTS" Value="&quot;[INSTALLFOLDER]install/[PREVIOUS_PRUNSRV_NAME]&quot; //SS//[PREVIOUS_SERVICE_NAME]" Sequence="execute" Before="StopTS" />
 
     <!-- uninstall the service as procrun service application (not windows service!) -->
     <CustomAction Id="UninstallTSProcrun" BinaryKey="WixCA" DllEntry="CAQuietExec" Impersonate="no" Execute="deferred" Return="ignore" />
-    <SetProperty Id="UninstallTSProcrun" Value="&quot;[INSTALLFOLDER]install/[UNINSTALL_PRUNSRV_NAME]&quot; //DS//[UNINSTALL_SERVICE_NAME]" Sequence="execute" Before="UninstallTSProcrun" />
+    <SetProperty Id="UninstallTSProcrun" Value="&quot;[INSTALLFOLDER]install/[PREVIOUS_PRUNSRV_NAME]&quot; //DS//[PREVIOUS_SERVICE_NAME]" Sequence="execute" Before="UninstallTSProcrun" />
   </Fragment>
 </Wix>
