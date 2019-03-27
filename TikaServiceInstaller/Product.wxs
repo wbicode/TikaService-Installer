@@ -61,6 +61,9 @@
 
       <!-- store ServiceName, LogPath and Prunsrv name inside registry (config values get read from the installation directory) -->
       <ComponentRef Id="Registry_StoreConfiguration" />
+
+      <!-- this is needed to have a reference to PreviousProperties.wxs; as this fragment is only included if there are any refs to it -->
+      <ComponentRef Id="PreviousProperties" />
     </Feature>
 
     <!-- property for the launch condition -->

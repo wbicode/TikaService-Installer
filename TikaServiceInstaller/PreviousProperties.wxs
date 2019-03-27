@@ -15,6 +15,7 @@
   <?include PreProcessorVariables.wxi ?>
   
 	<Fragment>
+    <!-- fake component to have a reference inside this file (PreviousProperties.wxs) -->
     <Component Id="PreviousProperties" Directory="INSTALLFOLDER" Guid="{3D5809C4-D825-4343-BFC8-54B62288B6D4}">
       <CreateFolder />
     </Component>
