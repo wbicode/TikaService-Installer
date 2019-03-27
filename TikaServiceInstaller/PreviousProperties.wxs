@@ -44,9 +44,9 @@
                       Name='{81069BBB-47A8-46D8-9C30-880536ABE299}_UninstallServiceName'
                       Type='raw' />
     </Property>
-    <SetProperty Action='SetPrevServiceName' After='AppSearch' Sequence='first' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME]'>PREVIOUS_SERVICE_NAME</SetProperty>
-    <SetProperty Action='SetPrevServiceName_1_0_0' After='AppSearch' Sequence='first' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME_1_0_0]'>PREVIOUS_SERVICE_NAME_1_0_0</SetProperty>
-    <SetProperty Action='SetPrevServiceName_1_0_1ff' After='AppSearch' Sequence='first' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME_1_0_1FF]'>PREVIOUS_SERVICE_NAME_1_0_1FF</SetProperty>
+    <SetProperty Action='SetServiceName' After='AppSearch' Sequence='first' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME]'>PREVIOUS_SERVICE_NAME</SetProperty>
+    <SetProperty Action='SetServiceName_1_0_0' After='AppSearch' Sequence='first' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME_1_0_0]'>PREVIOUS_SERVICE_NAME_1_0_0</SetProperty>
+    <SetProperty Action='SetServiceName_1_0_1ff' After='AppSearch' Sequence='first' Id='SERVICE_NAME' Value='[PREVIOUS_SERVICE_NAME_1_0_1FF]'>PREVIOUS_SERVICE_NAME_1_0_1FF</SetProperty>
 
     <!-- prunsrv name used when installing (correct bitness for uninstallation) -->
     <Property Id='PREVIOUS_PRUNSRV_NAME'>
@@ -72,16 +72,16 @@
                       Name='{81069BBB-47A8-46D8-9C30-880536ABE299}_UninstallPrunsrvName'
                       Type='raw' />
     </Property>
-    <SetProperty Action='SetPrevPrunsrvName' After='AppSearch' Sequence='first' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME]'>PREVIOUS_PRUNSRV_NAME</SetProperty>
-    <SetProperty Action='SetPrevPrunsrvName_1_0_0' After='AppSearch' Sequence='first' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME_1_0_0]'>PREVIOUS_PRUNSRV_NAME_1_0_0</SetProperty>
-    <SetProperty Action='SetPrevPrunsrvName_1_0_1ff' After='AppSearch' Sequence='first' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME_1_0_1FF]'>PREVIOUS_PRUNSRV_NAME_1_0_1FF</SetProperty>
+    <SetProperty Action='SetPrunsrvName' After='AppSearch' Sequence='first' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME]'>PREVIOUS_PRUNSRV_NAME</SetProperty>
+    <SetProperty Action='SetPrunsrvName_1_0_0' After='AppSearch' Sequence='first' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME_1_0_0]'>PREVIOUS_PRUNSRV_NAME_1_0_0</SetProperty>
+    <SetProperty Action='SetPrunsrvName_1_0_1ff' After='AppSearch' Sequence='first' Id='PRUNSRV_NAME' Value='[PREVIOUS_PRUNSRV_NAME_1_0_1FF]'>PREVIOUS_PRUNSRV_NAME_1_0_1FF</SetProperty>
 
     <!-- log folder; is the same since 1.0.0 -->
     <Property Id='PREVIOUS_LOG_PATH' Secure='yes'>
       <RegistrySearch Id='SearchUninstallLogFolder' Root='HKLM' Key='SOFTWARE\TikaService'
                         Name='LogDirectory' Type='raw' />
     </Property>
-    <!--<SetProperty Action='SetPreviousLogPath' After='AppSearch' Id='LOG_PATH' Value='[PREVIOUS_LOG_PATH]'>PREVIOUS_LOG_PATH</SetProperty>-->
+    <!--<SetProperty Action='SetLogPath' After='AppSearch' Id='LOG_PATH' Value='[PREVIOUS_LOG_PATH]'>PREVIOUS_LOG_PATH</SetProperty>-->
 
     <Property Id='PREVIOUS_STARTUP_TYPE' />
     <Property Id='PREVIOUS_TIKA_LOGLEVEL' />
