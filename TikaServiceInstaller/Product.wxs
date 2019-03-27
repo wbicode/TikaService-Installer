@@ -126,6 +126,21 @@
                        Name='LogDirectory'
                        Value='[LOG_PATH]'
                        Type='string' />
+        <RegistryValue Root='HKLM'
+                       Key='SOFTWARE\TikaService'
+                       Name='InstallFolder'
+                       Value='[INSTALLFOLDER]'
+                       Type='string' />
+        <RegistryValue Root='HKLM'
+                       Key='SOFTWARE\TikaService'
+                       Name='StartupType'
+                       Value='[STARTUP_TYPE]'
+                       Type='string' />
+        <RegistryValue Root='HKLM'
+                       Key='SOFTWARE\TikaService'
+                       Name='TikaLoglevel'
+                       Value='[TIKA_LOGLEVEL]'
+                       Type='string' />
       </Component>
       <Component Id="StartServiceCondition" Guid="4928D96B-438D-4193-8706-2F5AC0082D80" KeyPath="yes">
         <Condition>START_AFTER_SETUP</Condition>
