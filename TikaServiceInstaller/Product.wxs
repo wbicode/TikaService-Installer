@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
   <?include PreProcessorVariables.wxi ?>
-  
+
   <!-- $(var.BuildVersion) and $(var.BuildVersionExact) come from the .wixproj file -->
   <!-- these variables come from GitVersion (see: https://github.com/GitTools/GitVersion ) -->
 
@@ -48,7 +48,7 @@
     <Feature Id="ProductFeature" Title="TikaService" Level="1">
       <!-- generated files from head (actual TikaService files) -->
       <ComponentGroupRef Id="PublishedComponents" />
-      
+
       <!-- those files are getting auto-generated -->
       <ComponentRef Id="ApplicationUninstallShortcut" />
 
@@ -58,11 +58,11 @@
       <ComponentRef Id="StartServiceCondition" />
 
       <ComponentRef Id="TikaServiceControl" />
-      
+
       <!-- store ServiceName, LogPath and Prunsrv name inside registry (config values get read from the installation directory) -->
       <ComponentRef Id="Registry_StoreConfiguration" />
     </Feature>
-    
+
     <!-- property for the launch condition -->
     <Property Id="JRE_INSTALLED" Value="0" />
 
@@ -172,7 +172,7 @@
     <!-- use prunsrv.exe if java is installed for 32bit; else use prunsrv64.exe -->
     <SetProperty Action="set32bitPRUNSRV_NAME" Id="PRUNSRV_NAME" Value="prunsrv.exe" After="CheckJREInstalled"><![CDATA[JRE_INSTALLED="32bit"]]></SetProperty>
     <SetProperty Action="set64bitPRUNSRV_NAME" Id="PRUNSRV_NAME" Value="prunsrv64.exe" After="CheckJREInstalled"><![CDATA[JRE_INSTALLED="64bit"]]></SetProperty>
-    
+
     <!-- open file chooser-->
     <CustomAction Id="OpenFileChooser" BinaryKey="CA_DirectoryChooser" DllEntry="OpenFileChooser" />
 
@@ -181,7 +181,7 @@
 
     <!-- check if service exists -->
     <CustomAction Id="CheckServiceName" BinaryKey="CA_InputValidation" DllEntry="ExistsService" Execute="immediate" />
-    
+
     <!-- replace backslashes in the LOG_PATH with frontslashes; because if this path ends with a backslash the next double quote gets escaped -->
     <SetProperty Before="ReplaceLOG_PATH" Id="PROPERTY_TO_REPLACE_BACKSLASH" Value="LOG_PATH" Sequence="execute" />
     <CustomAction Id="ReplaceLOG_PATH" DllEntry="ReplaceBackslashWithFrontslash" BinaryKey="CA_InputValidation" />
