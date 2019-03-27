@@ -147,6 +147,9 @@
         <ServiceControl Id="StartTikaService" Name="[SERVICE_NAME]" Start="install" />
       </Component>
       <Component Id="ConfigFile" Guid="{0D17F6EC-6D51-43E6-9246-6CB99AA870E1}">
+        <!-- only write into .ini file when first installing; because if the user changes them after the first installment, we cannot override that file anymore 
+          BUT this is solved using neverOverwriteConfigs.xslt; here we only write these values
+        -->
         <Condition>NOT WIX_UPGRADE_DETECTED</Condition>
         <IniFile Id="WritePort" Action="addLine" Directory="dirF5D9BDF13CBC346EDDFD6D0959FFB838" Section="default" Name="service.config" Key="port" Value="[SERVICE_PORT]" />
         <IniFile Id="WriteHost" Action="addLine" Directory="dirF5D9BDF13CBC346EDDFD6D0959FFB838" Section="default" Name="service.config" Key="host" Value="[SERVICE_HOST]" />
