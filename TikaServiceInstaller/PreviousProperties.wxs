@@ -10,6 +10,10 @@
     * PREVIOUS_PRUNSRV_NAME (used to uninstall and stop the service; in the correct bitness)
     * PREVIOUS_LOG_PATH (for an upgrade)
   
+  Ini-File-Values:
+    * SERVICE_HOST
+    * SERVICE_PORT
+  
   -->
 
   <?include PreProcessorVariables.wxi ?>
@@ -81,9 +85,49 @@
       <RegistrySearch Id='SearchUninstallLogFolder' Root='HKLM' Key='SOFTWARE\TikaService'
                         Name='LogDirectory' Type='raw' />
     </Property>
-    <!--<SetProperty Action='SetLogPath' After='AppSearch' Id='LOG_PATH' Value='[PREVIOUS_LOG_PATH]'>PREVIOUS_LOG_PATH</SetProperty>-->
+    <SetProperty Action='SetPropertyToReplaceFrontslash' Before='ReplacePREVIOUS_LOG_PATH' Id='PROPERTY_TO_REPLACE_FRONTSLASH' Value='PREVIOUS_LOG_PATH' Sequence='first' />
+    <CustomAction Id="ReplacePREVIOUS_LOG_PATH" DllEntry="ReplaceFrontslashWithBackslash" BinaryKey="CA_InputValidation" />
+    <SetProperty Action='SetLogPath' After='AppSearch' Id='LOG_PATH' Value='[PREVIOUS_LOG_PATH]'>PREVIOUS_LOG_PATH</SetProperty>
 
-    <Property Id='PREVIOUS_STARTUP_TYPE' />
-    <Property Id='PREVIOUS_TIKA_LOGLEVEL' />
+    <!-- load STARTUP_TYPE -->
+    <Property Id='PREVIOUS_STARTUP_TYPE'>
+      <RegistrySearch Id='SearchPreviousStartupType'
+                      Root='HKLM'
+                      Win64='$(var.IsWin64)'
+                      Key='SOFTWARE\TikaService'
+                      Name='StartupType'
+                      Type='raw' />
+    </Property>
+    <SetProperty Action='SetStartupType' After='AppSearch' Id='STARTUP_TYPE' Value='[PREVIOUS_STARTUP_TYPE]'>PREVIOUS_STARTUP_TYPE</SetProperty>
+
+    <!-- load TIKA_LOGLEVEL -->
+    <Property Id='PREVIOUS_TIKA_LOGLEVEL'>
+      <RegistrySearch Id='SearchPreviousTikaLoglevel'
+                      Root='HKLM'
+                      Win64='$(var.IsWin64)'
+                      Key='SOFTWARE\TikaService'
+                      Name='TikaLoglevel'
+                      Type='raw' />
+    </Property>
+    <SetProperty Action='SetTikaLoglevel' After='AppSearch' Id='TIKA_LOGLEVEL' Value='[PREVIOUS_TIKA_LOGLEVEL]'>PREVIOUS_TIKA_LOGLEVEL</SetProperty>
+
+    <!-- load INSTALLFOLDER -->
+    <Property Id='PREVIOUS_INSTALLFOLDER'>
+      <RegistrySearch Id='SearchPreviousInstallFolder'
+                      Root='HKLM'
+                      Win64='$(var.IsWin64)'
+                      Key='SOFTWARE\TikaService'
+                      Name='InstallFolder'
+                      Type='raw' />
+    </Property>
+    <SetProperty Action='SetInstallFolder' After='AppSearch' Id='INSTALLFOLDER' Value='[PREVIOUS_INSTALLFOLDER]'>PREVIOUS_INSTALLFOLDER</SetProperty>
+    
+    <InstallUISequence>
+      <Custom Action='ReplacePREVIOUS_LOG_PATH' After='AppSearch'>1</Custom>
+    </InstallUISequence>
+
+    <InstallExecuteSequence>
+      <Custom Action='ReplacePREVIOUS_LOG_PATH' After='AppSearch'>1</Custom>
+    </InstallExecuteSequence>
   </Fragment>
 </Wix>
