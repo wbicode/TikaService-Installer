@@ -63,7 +63,7 @@ Patch dialog sequence:
       <Publish Dialog="CustomInstallDirDlg" Control="Next" Event="SpawnDialog" Value="InvalidDirDlg" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
       <Publish Dialog="CustomInstallDirDlg" Control="Next" Event="NewDialog" Value="TikaServiceDlg" Order="4">WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"</Publish>
 
-      <Publish Dialog="TikaServiceDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1">1</Publish>
+      <Publish Dialog="TikaServiceDlg" Control="Back" Event="NewDialog" Value="CustomInstallDirDlg" Order="1">1</Publish>
       <Publish Dialog="TikaServiceDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="7"><![CDATA[NOT CA_IV_SERVICE_EXISTS AND PORT_IS_AVAILABLE OR WIX_UPGRADE_DETECTED]]></Publish>
 
       <!-- warning that the servicename is already taken -->
