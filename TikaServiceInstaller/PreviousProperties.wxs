@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  
+
   <!-- This file reads all properties from a previous installation (used for an upgrade) -->
-  
+
   <!-- Properties loaded: 
   
   Registry:
+    * INSTALLFOLDER
     * PREVIOUS_SERVICE_NAME (used to uninstall the service)
     * PREVIOUS_PRUNSRV_NAME (used to uninstall and stop the service; in the correct bitness)
     * PREVIOUS_LOG_PATH (for an upgrade)
+    * PREVIOUS_STARTUP_TYPE
+    * PREVIOUS_LOGLEVEL
   
-  Ini-File-Values:
+  Ini-File-Values: they are loaded in CA_ReadConfig; and will get displayed in the UI
     * SERVICE_HOST
     * SERVICE_PORT
   
   -->
 
   <?include PreProcessorVariables.wxi ?>
-  
-	<Fragment>
+
+  <Fragment>
     <!-- fake component to have a reference inside this file (PreviousProperties.wxs) -->
     <Component Id="PreviousProperties" Directory="INSTALLFOLDER" Guid="{3D5809C4-D825-4343-BFC8-54B62288B6D4}">
       <CreateFolder />
     </Component>
-    
+
     <!-- the previous installed service name-->
     <Property Id='PREVIOUS_SERVICE_NAME'>
       <RegistrySearch Id='SearchPreviousServiceName'
@@ -121,9 +124,27 @@
                       Type='raw' />
     </Property>
     <SetProperty Action='SetInstallFolder' After='AppSearch' Id='INSTALLFOLDER' Value='[PREVIOUS_INSTALLFOLDER]'>PREVIOUS_INSTALLFOLDER</SetProperty>
+
+    <!-- path to ini file; used in the CA_ReadConfig -->
+    <Property Id='CONFIG_FILE'>
+      <DirectorySearch Id='SearchInstallFolder' Path='[PREVIOUS_INSTALLFOLDER]'>
+        <DirectorySearch Id='SearchConfigFolder' Path='config' >
+          <FileSearch Id='SearchConfigFile' Name='service.config' />
+        </DirectorySearch>
+      </DirectorySearch>
+    </Property>
+
+    <CustomAction Id="ReadHost" DllEntry="ReadHost" BinaryKey="CA_ReadConfig" />
+    <CustomAction Id="ReadPort" DllEntry="ReadPort" BinaryKey="CA_ReadConfig" />
     
     <InstallUISequence>
       <Custom Action='ReplacePREVIOUS_LOG_PATH' After='AppSearch'>1</Custom>
+
+      <!-- read only if CONFIG_FILE exists (when upgrading) -->
+      <!-- TODO: when choosing the InstallFolder -> test if config file exits -->
+      <Custom Action='ReadHost' After='AppSearch'>CONFIG_FILE</Custom>
+      <Custom Action='ReadPort' After='AppSearch'>CONFIG_FILE</Custom>
+      <!-- only read host/port in UI-Sequence, because only here it could be changed -->
     </InstallUISequence>
 
     <InstallExecuteSequence>

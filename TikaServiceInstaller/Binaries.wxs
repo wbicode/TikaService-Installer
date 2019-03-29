@@ -9,5 +9,8 @@
 
     <!-- dll to make input validation -->
     <Binary Id="CA_InputValidation" SourceFile="$(var.SolutionDir)/packages/CA_InputValidation.1.0.2/lib/net45/CA_InputValidation.CA.dll" />
+    
+    <!-- CA_ReadConfig to read the host and port for upgrades (with IniFileSearch it's difficult to read the value from a dynamic path -->
+    <Binary Id="CA_ReadConfig" SourceFile="$(var.SolutionDir)/CA_ReadConfig/bin/$(var.Configuration)/CA_ReadConfig.CA.dll" />
   </Fragment>
 </Wix>

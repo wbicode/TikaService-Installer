@@ -153,7 +153,7 @@
         <!-- only write into .ini file when first installing; because if the user changes them after the first installment, we cannot override that file anymore 
           BUT this is solved using neverOverwriteConfigs.xslt; here we only write these values
         -->
-        <Condition>NOT WIX_UPGRADE_DETECTED</Condition>
+        <!-- This got removed to change the port/host when upgrading: <Condition>NOT WIX_UPGRADE_DETECTED</Condition>-->
         <IniFile Id="WritePort" Action="addLine" Directory="dirF5D9BDF13CBC346EDDFD6D0959FFB838" Section="default" Name="service.config" Key="port" Value="[SERVICE_PORT]" />
         <IniFile Id="WriteHost" Action="addLine" Directory="dirF5D9BDF13CBC346EDDFD6D0959FFB838" Section="default" Name="service.config" Key="host" Value="[SERVICE_HOST]" />
       </Component>
