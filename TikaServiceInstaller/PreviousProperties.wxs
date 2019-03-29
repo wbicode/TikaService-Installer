@@ -141,7 +141,6 @@
       <Custom Action='ReplacePREVIOUS_LOG_PATH' After='AppSearch'>1</Custom>
 
       <!-- read only if CONFIG_FILE exists (when upgrading) -->
-      <!-- TODO: when choosing the InstallFolder -> test if config file exits -->
       <Custom Action='ReadHost' After='AppSearch'>CONFIG_FILE</Custom>
       <Custom Action='ReadPort' After='AppSearch'>CONFIG_FILE</Custom>
       <!-- only read host/port in UI-Sequence, because only here it could be changed -->
