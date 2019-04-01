@@ -208,15 +208,15 @@
     <CustomAction Id="ReplaceLOG_PATH" DllEntry="ReplaceBackslashWithFrontslash" BinaryKey="CA_InputValidation" />
 
     <!-- Install the Service using CAQuietExec (so no cmd-window is shown) -->
-    <CustomAction Id="InstallTS" BinaryKey="WixCA" DllEntry="CAQuietExec" Impersonate="no" Execute="deferred" Return="check"  />
+    <CustomAction Id="InstallTS" BinaryKey="WixCA" DllEntry="$(var.WixQuietExec)" Impersonate="no" Execute="deferred" Return="check"  />
     <SetProperty Id="InstallTS" Value="&quot;cmd&quot; /V /C &quot;set PRUNSRV_NAME=[PRUNSRV_NAME]&amp;&amp;set TIKA_LOGLEVEL=[TIKA_LOGLEVEL]&amp;&amp;set TIKA_LOG_PATH=[LOG_PATH]&amp;&amp;set TIKA_STARTUP_TYPE=[STARTUP_TYPE]&amp;&amp;&quot;[INSTALLFOLDER]install/install.bat&quot; [SERVICE_NAME]&quot;" Sequence="execute" Before="InstallTS" />
 
     <!-- ignore return, because if the service is not running, it cannot be stopped -->
-    <CustomAction Id="StopTS" BinaryKey="WixCA" DllEntry="CAQuietExec" Impersonate="no" Execute="deferred" Return="ignore" />
+    <CustomAction Id="StopTS" BinaryKey="WixCA" DllEntry="$(var.WixQuietExec)" Impersonate="no" Execute="deferred" Return="check" />
     <SetProperty Id="StopTS" Value="&quot;[INSTALLFOLDER]install/[PREVIOUS_PRUNSRV_NAME]&quot; //SS//[PREVIOUS_SERVICE_NAME]" Sequence="execute" Before="StopTS" />
 
     <!-- uninstall the service as procrun service application (not windows service!) -->
-    <CustomAction Id="UninstallTSProcrun" BinaryKey="WixCA" DllEntry="CAQuietExec" Impersonate="no" Execute="deferred" Return="ignore" />
+    <CustomAction Id="UninstallTSProcrun" BinaryKey="WixCA" DllEntry="$(var.WixQuietExec)" Impersonate="no" Execute="deferred" Return="check" />
     <SetProperty Id="UninstallTSProcrun" Value="&quot;[INSTALLFOLDER]install/[PREVIOUS_PRUNSRV_NAME]&quot; //DS//[PREVIOUS_SERVICE_NAME]" Sequence="execute" Before="UninstallTSProcrun" />
   </Fragment>
 </Wix>
