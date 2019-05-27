@@ -73,6 +73,7 @@
     <UIRef Id="InstallerUI" />
 
     <!-- Properties for TikaServiceDlg.wxs -->
+    <!-- they may get overwritten when upgrading or uninstalling inside PreviousProperties.wxs -->
     <Property Id="SERVICE_PORT" Value="9997" />
     <Property Id="SERVICE_HOST" Value="localhost" />
     <Property Id='SERVICE_NAME' Value='TikaService' />
