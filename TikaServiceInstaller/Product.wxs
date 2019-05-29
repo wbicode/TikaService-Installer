@@ -7,7 +7,7 @@
   <!-- these variables come from GitVersion (see: https://github.com/GitTools/GitVersion ) -->
 
   <!-- ATTENTION: Generate ID for each release! -->
-  <Product Id="{81069BBB-47A8-46D8-9C30-880536ABE299}"
+  <Product Id="{36BF5421-A13A-49D3-9E9D-A87450D32935}"
            Name="$(var.ProductName)"
            Language="1033"
            Version="$(var.BuildVersion)"
