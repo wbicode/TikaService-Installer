@@ -9,7 +9,8 @@
   <!-- ATTENTION: Generate ID for each release! -->
   <!-- 1.0.1-1.1.0: {81069BBB-47A8-46D8-9C30-880536ABE299} -> for tika.server 1.20 -->
   <!-- 1.1.1-onwards: {36BF5421-A13A-49D3-9E9D-A87450D32935} -> for tika.server 1.21 -->
-  <Product Id="{36BF5421-A13A-49D3-9E9D-A87450D32935}"
+  <!-- 1.26.0: {d7a7983f-8c31-4883-86a9-16e114182601} -> for tika.server 1.26-->
+  <Product Id="{d7a7983f-8c31-4883-86a9-16e114182601}"
            Name="$(var.ProductName)"
            Language="1033"
            Version="$(var.BuildVersion)"
