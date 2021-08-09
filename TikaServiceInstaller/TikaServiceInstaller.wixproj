@@ -93,10 +93,10 @@
     <PropertyGroup>
       <DefineConstants>BasePath=$(ProjectDir)\TikaServiceDownload;BuildVersion=$(BuildVersion);BuildVersionExact=$(BuildVersionExact)</DefineConstants>
     </PropertyGroup>
-    <DownloadFile SourceUrl="https://github.com/wbicode/TikaService/releases/download/1.26.0/TikaService-1.26.0.zip" DestinationFolder="$(MSBuildProjectDirectory)" Condition="!Exists('TikaService-1.26.0.zip')">
+    <DownloadFile SourceUrl="https://github.com/wbicode/TikaService/releases/download/2.0.0/TikaService-2.0.0.zip" DestinationFolder="$(MSBuildProjectDirectory)" Condition="!Exists('TikaService-2.0.0.zip')">
       <Output TaskParameter="DownloadedFile" ItemName="Content" />
     </DownloadFile>
-    <Unzip SourceFiles="$(ProjectDir)/TikaService-1.26.0.zip" DestinationFolder="$(ProjectDir)/TikaServiceDownload" OverwriteReadOnlyFiles="true" ContinueOnError="true" />
+    <Unzip SourceFiles="$(ProjectDir)/TikaService-2.0.0.zip" DestinationFolder="$(ProjectDir)/TikaServiceDownload" OverwriteReadOnlyFiles="true" ContinueOnError="true" />
     <!-- harvest file components from publish folder-->
     <HeatDirectory OutputFile="ComponentsGenerated.wxs" Transforms="neverOverwriteConfigs.xslt" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="$(ProjectDir)\TikaServiceDownload" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
   </Target>
