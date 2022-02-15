@@ -12,7 +12,8 @@
   <!-- 1.26.0: {d7a7983f-8c31-4883-86a9-16e114182601} -> for tika.server 1.26-->
   <!-- 2.0.0: {3cb5c81e-f913-11eb-9a03-0242ac130003} -> for tika.server 2.2.0-->
   <!-- 2.2.1: {e4413e41-ba94-4904-baca-c2464bcdb787} -> for tika.server 2.2.1-->
-  <Product Id="{e4413e41-ba94-4904-baca-c2464bcdb787}"
+  <!-- 2.3.0: {4c9fa514-8e2e-11ec-b909-0242ac120002} -> for tika.server 2.2.1-->
+  <Product Id="{4c9fa514-8e2e-11ec-b909-0242ac120002}"
            Name="$(var.ProductName)"
            Language="1033"
            Version="$(var.BuildVersion)"
